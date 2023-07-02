@@ -102,3 +102,94 @@ data = pd.read_csv('cluster_data.csv')
 kmeans = KMeans(n_clusters=3, random_state=0)
 clusters = kmeans.fit_predict(data)
 print("Cluster labels:", clusters)
+
+
+
+
+
+
+
+#Principal Component Analysis (PCA):
+import pandas as pd
+from sklearn.decomposition import PCA
+# Read data from CSV
+data = pd.read_csv('pca_data.csv')
+# Perform PCA
+pca = PCA()
+pca.fit(data)
+# Access the principal components and explained variance ratio
+components = pca.components_
+explained_variance_ratio = pca.explained_variance_ratio_
+print("Principal Components:")
+print(components)
+print("Explained Variance Ratio:")
+print(explained_variance_ratio)
+
+#Hierarchical Clustering:
+
+import pandas as pd
+from scipy.cluster.hierarchy import dendrogram, linkage
+import matplotlib.pyplot as plt
+# Read data from CSV
+data = pd.read_csv('hierarchical_clustering_data.csv')
+# Perform hierarchical clustering
+linked = linkage(data, 'ward')
+# Plot dendrogram
+plt.figure(figsize=(10, 5))
+dendrogram(linked)
+plt.xlabel('Data Points')
+plt.ylabel('Distance')
+plt.title('Hierarchical Clustering Dendrogram')
+plt.show()
+
+#Survival Analysis:
+
+import pandas as pd
+import lifelines
+
+# Read data from CSV
+data = pd.read_csv('survival_analysis_data.csv')
+
+# Perform survival analysis
+kmf = lifelines.KaplanMeierFitter()
+kmf.fit(data['Time'], event_observed=data['Event'])
+
+# Plot survival curve
+kmf.plot()
+plt.xlabel('Time')
+plt.ylabel('Survival Probability')
+plt.title('Survival Analysis')
+plt.show()
+
+#Structural Equation Modeling (SEM):
+
+import semopy
+# Read data from CSV
+data = pd.read_csv('sem_data.csv')
+# Define the SEM model
+model = """
+    X1 ~ X2 + X3
+    X2 ~ X3
+"""
+# Fit the SEM model
+fit = semopy.Model(model)
+fit.fit(data)
+# Access the estimated parameters
+params = fit.parameters
+print("Estimated Parameters:")
+print(params)
+
+#Multilevel Modeling:
+
+import pandas as pd
+import statsmodels.api as sm
+# Read data from CSV
+data = pd.read_csv('multilevel_data.csv')
+# Perform multilevel modeling
+model_formula = 'Score ~ 1 + Group'
+model = sm.MixedLM.from_formula(model_formula, groups=data['Individual'], data=data)
+results = model.fit()
+
+print(results.summary())
+
+
